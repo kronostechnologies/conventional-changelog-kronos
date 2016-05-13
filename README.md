@@ -1,2 +1,5 @@
-# conventional-changelog-kronos
-conventional-changelog kronos preset
+
+> [conventional-changelog](https://github.com/ajoslin/conventional-changelog) [kronos](https://kronostechnologies.com) preset
+
+
+See [convention](CONVENTION.md)
