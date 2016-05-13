@@ -24,7 +24,8 @@ var parserOpts = {
   ],
   noteKeywords: 'BREAKING CHANGE',
   revertPattern: /^revert:\s([\s\S]*?)\s*This reverts commit (\w*)\./,
-  revertCorrespondence: ['header', 'hash']
+  revertCorrespondence: ['header', 'hash'],
+  mergePattern: /^(?:Merge branch '?[^']+'? into '?[^']+'?|Merge pull request #(\d+) from .*)$/
 };
 
 function issueUrl() {
@@ -99,6 +100,10 @@ var writerOpts = {
   notesSort: compareFunc
 };
 
+var gitRawCommitsOpts = {
+  merges: null
+};
+
 module.exports = Q.all([
   readFile(resolve(__dirname, 'templates/template.hbs'), 'utf-8'),
   readFile(resolve(__dirname, 'templates/header.hbs'), 'utf-8'),
@@ -114,6 +119,7 @@ module.exports = Q.all([
 
     return {
       parserOpts: parserOpts,
-      writerOpts: writerOpts
+      writerOpts: writerOpts,
+      gitRawCommitsOpts: gitRawCommitsOpts
     };
   });
