@@ -50,7 +50,7 @@ var writerOpts = {
       discard = false;
     });
 
-    if (commit.type === 'feat') {
+    if (commit.type.toLowerCase() === 'feat' || commit.type.toLowerCase() === 'feature') {
       commit.type = 'Features';
     } else if (commit.type === 'fix') {
       commit.type = 'Bug Fixes';
