@@ -5,23 +5,44 @@
   {{~header}}
 {{~/if}}
 
-{{~!-- commit link --}} {{#if @root.linkReferences~}}
-  ([{{hash}}](
-  {{~#if @root.repository}}
-    {{~#if @root.host}}
-      {{~@root.host}}/
-    {{~/if}}
-    {{~#if @root.owner}}
-      {{~@root.owner}}/
-    {{~/if}}
-    {{~@root.repository}}
+
+{{~!--repo link --}} {{#if pr~}}
+  {{#if @root.linkReferences~}}
+    ([#{{pr}}](
+    {{~#if @root.repository}}
+      {{~#if @root.host}}
+        {{~@root.host}}/
+      {{~/if}}
+      {{~#if @root.owner}}
+        {{~@root.owner}}/
+      {{~/if}}
+      {{~@root.repository}}
+    {{~else}}
+      {{~@root.repoUrl}}
+    {{~/if}}/pull/{{pr}}))
   {{~else}}
-    {{~@root.repoUrl}}
-  {{~/if}}/
-  {{~@root.commit}}/{{hash}}))
+    #{{~pr}}
+  {{~/if}}
 {{~else}}
-  {{~hash}}
+  {{#if @root.linkReferences~}}
+    ([{{hash}}](
+    {{~#if @root.repository}}
+      {{~#if @root.host}}
+        {{~@root.host}}/
+      {{~/if}}
+      {{~#if @root.owner}}
+        {{~@root.owner}}/
+      {{~/if}}
+      {{~@root.repository}}
+    {{~else}}
+      {{~@root.repoUrl}}
+    {{~/if}}/
+    {{~@root.commit}}/{{hash}}))
+  {{~else}}
+    {{~hash}}
+  {{~/if}}
 {{~/if}}
+
 
 {{~!-- commit references --}}
 {{~#if references~}}

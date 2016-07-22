@@ -25,7 +25,8 @@ var parserOpts = {
   noteKeywords: 'BREAKING CHANGE',
   revertPattern: /^revert:\s([\s\S]*?)\s*This reverts commit (\w*)\./,
   revertCorrespondence: ['header', 'hash'],
-  mergePattern: /^(?:Merge branch '?[^']+'? into '?[^']+'?|Merge pull request #(\d+) from .*)$/
+  mergePattern: /^(?:Merge branch '?[^']+'? into '?[^']+'?|Merge pull request #(\d+) from .*)$/,
+  mergeCorrespondence: ['pr']
 };
 
 function issueUrl() {
@@ -50,7 +51,11 @@ var writerOpts = {
       discard = false;
     });
 
-    if (commit.type.toLowerCase() === 'feat' || commit.type.toLowerCase() === 'feature') {
+    if (typeof commit.type === 'string') {
+      commit.type = commit.type.toLowerCase();
+    }
+
+    if (commit.type === 'feat' || commit.type === 'feature') {
       commit.type = 'Features';
     } else if (commit.type === 'fix') {
       commit.type = 'Bug Fixes';
